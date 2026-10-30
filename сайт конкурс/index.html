@@ -1,0 +1,2903 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Хіміна Майстерня 10 клас Мороховець Ярослав</title>
+
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23040509'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-size='26' font-family='Arial Black,Arial' fill='%23d8d8d8'%3ER%2B%3C/text%3E%3C/svg%3E"
+  />
+
+  <style>
+    :root {
+      --bg: #05070d;
+      --panel: rgba(8, 12, 24, 0.88);
+      --panel2: rgba(12, 18, 35, 0.95);
+      --line: rgba(255,255,255,0.12);
+      --text: #eaf4ff;
+      --muted: #94a9c7;
+      --cyan: #00e5ff;
+      --green: #32ff9c;
+      --purple: #9b5cff;
+      --red: #ff365c;
+      --orange: #ffb84d;
+      --yellow: #ffe066;
+      --radius: 18px;
+      --shadow: 0 0 35px rgba(0, 229, 255, 0.14);
+      --font: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(0,229,255,0.12), transparent 28%),
+        radial-gradient(circle at 84% 20%, rgba(155,92,255,0.14), transparent 32%),
+        radial-gradient(circle at 50% 92%, rgba(50,255,156,0.07), transparent 28%),
+        #05070d;
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    #threeRoot {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    #ui {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 330px 1fr 370px;
+      grid-template-rows: 76px 1fr 210px;
+      gap: 12px;
+      padding: 12px;
+      pointer-events: none;
+    }
+
+    .panel {
+      pointer-events: auto;
+      background: linear-gradient(180deg, rgba(12,18,35,0.90), rgba(5,7,13,0.86));
+      border: 1px solid rgba(0,229,255,0.22);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow), inset 0 0 20px rgba(255,255,255,0.025);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,0.07), transparent 36%),
+        radial-gradient(circle at top left, rgba(0,229,255,0.12), transparent 34%);
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .top {
+      grid-column: 1 / 4;
+      grid-row: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      width: 43px;
+      height: 43px;
+      border-radius: 10px;
+      background: #050609;
+      border: 1px solid rgba(255,255,255,0.18);
+      display: grid;
+      place-items: center;
+      color: #ddd;
+      font-family: Impact, Arial Black, sans-serif;
+      font-size: 18px;
+      letter-spacing: -1px;
+      box-shadow: 0 0 18px rgba(255,255,255,0.08), 0 0 20px rgba(0,229,255,0.16);
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      border: 1px solid rgba(255,255,255,0.13);
+      background: rgba(255,255,255,0.055);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pill strong {
+      color: var(--green);
+    }
+
+    .left {
+      grid-column: 1;
+      grid-row: 2 / 4;
+    }
+
+    .right {
+      grid-column: 3;
+      grid-row: 2 / 4;
+    }
+
+    .center {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: start;
+      justify-self: center;
+      width: min(760px, 100%);
+    }
+
+    .bottom {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    .section {
+      padding: 14px 15px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: .25px;
+    }
+
+    .section span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .scroll {
+      overflow: auto;
+      min-height: 0;
+      padding: 12px;
+    }
+
+    .scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+      border-radius: 99px;
+      background: rgba(0,229,255,0.25);
+    }
+
+    .tools {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: 1fr 112px;
+      gap: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      outline: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 13px;
+      padding: 10px 11px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: rgba(0,229,255,0.55);
+      box-shadow: 0 0 0 3px rgba(0,229,255,0.10);
+    }
+
+    option {
+      color: #06101e;
+    }
+
+    .hint {
+      margin: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,229,255,0.18);
+      background: rgba(0,229,255,0.055);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .reagent {
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.052);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: .16s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .reagent:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0,229,255,0.42);
+      background: rgba(0,229,255,0.075);
+    }
+
+    .reagent.active {
+      border-color: rgba(0,229,255,0.8);
+      box-shadow: 0 0 22px rgba(0,229,255,0.18);
+    }
+
+    .reagent.locked {
+      opacity: .43;
+      filter: grayscale(.7);
+    }
+
+    .reagent.danger {
+      border-color: rgba(255,54,92,0.30);
+    }
+
+    .reagent-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 10px;
+    }
+
+    .reagent-name {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      font-weight: 850;
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: 0 0 13px rgba(255,255,255,.18);
+      flex: 0 0 auto;
+    }
+
+    .formula {
+      font-weight: 900;
+      color: var(--cyan);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.17);
+      border-radius: 999px;
+      padding: 4px 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .tag.red {
+      color: #ffd7de;
+      border-color: rgba(255,54,92,.35);
+      background: rgba(255,54,92,.13);
+    }
+
+    .tag.orange {
+      color: #fff0d1;
+      border-color: rgba(255,184,77,.36);
+      background: rgba(255,184,77,.12);
+    }
+
+    .desc {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.43;
+    }
+
+    .hud {
+      padding: 13px 15px;
+    }
+
+    .hud-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .hud-row strong {
+      color: var(--text);
+      text-align: right;
+    }
+
+    .btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.07);
+      color: var(--text);
+      border-radius: 13px;
+      padding: 9px 11px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+      transition: .15s ease;
+    }
+
+    .btn:hover {
+      border-color: rgba(0,229,255,.55);
+      background: rgba(0,229,255,.11);
+    }
+
+    .btn.primary {
+      border-color: rgba(0,229,255,.52);
+      background: linear-gradient(135deg, rgba(0,229,255,.21), rgba(155,92,255,.17));
+    }
+
+    .btn.good {
+      border-color: rgba(50,255,156,.38);
+      background: rgba(50,255,156,.10);
+    }
+
+    .btn.warn {
+      border-color: rgba(255,184,77,.42);
+      background: rgba(255,184,77,.11);
+    }
+
+    .btn.bad {
+      border-color: rgba(255,54,92,.45);
+      background: rgba(255,54,92,.12);
+    }
+
+    .vessel-card {
+      margin: 12px;
+      border: 1px solid rgba(0,229,255,.20);
+      background: rgba(0,229,255,.055);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .vessel-card h3 {
+      margin: 0 0 5px;
+      font-size: 17px;
+    }
+
+    .vessel-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .meter {
+      margin: 12px;
+    }
+
+    .meter-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .bar {
+      height: 10px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      border-radius: inherit;
+      transition: width .22s ease, background .22s ease;
+    }
+
+    .content-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.052);
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .obs {
+      padding: 12px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .obs-main {
+      border: 1px solid rgba(50,255,156,.22);
+      background: rgba(50,255,156,.06);
+      border-radius: 16px;
+      padding: 12px;
+      min-height: 70px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #dfffee;
+    }
+
+    .obs-main strong {
+      color: var(--green);
+    }
+
+    .quest {
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.052);
+      border-radius: 16px;
+      padding: 11px;
+      margin-bottom: 9px;
+      font-size: 12px;
+    }
+
+    .quest.done {
+      border-color: rgba(50,255,156,.38);
+      background: rgba(50,255,156,.075);
+    }
+
+    .quest.locked {
+      opacity: .55;
+    }
+
+    .quest b {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .quest p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .quest small {
+      display: block;
+      color: var(--yellow);
+      margin-top: 7px;
+      font-weight: 800;
+    }
+
+    .log-list {
+      overflow: auto;
+      min-height: 0;
+      padding: 10px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #cfeaff;
+    }
+
+    .log-entry {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,.035);
+    }
+
+    .log-entry .time {
+      color: var(--cyan);
+    }
+
+    .log-entry.reaction {
+      color: #ddffef;
+    }
+
+    .log-entry.warn {
+      color: #ffe4b0;
+    }
+
+    .log-entry.bad {
+      color: #ffbec9;
+    }
+
+    #toastStack {
+      position: fixed;
+      right: 18px;
+      top: 92px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      min-width: 300px;
+      max-width: 450px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(8,12,24,.92);
+      box-shadow: 0 12px 35px rgba(0,0,0,.36), 0 0 22px rgba(0,229,255,.12);
+      backdrop-filter: blur(13px);
+      padding: 12px 14px;
+      animation: toastIn .22s ease both;
+    }
+
+    .toast.good {
+      border-color: rgba(50,255,156,.38);
+    }
+
+    .toast.warn {
+      border-color: rgba(255,184,77,.45);
+    }
+
+    .toast.bad {
+      border-color: rgba(255,54,92,.48);
+    }
+
+    .toast-title {
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .toast-text {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(15px) scale(.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    #danger {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: none;
+      max-width: 780px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,54,92,.52);
+      background: rgba(75,5,18,.92);
+      box-shadow: 0 0 35px rgba(255,54,92,.25);
+      padding: 14px 18px;
+      color: #ffe6eb;
+      text-align: center;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    #hoverLabel {
+      position: fixed;
+      z-index: 25;
+      pointer-events: none;
+      display: none;
+      transform: translate(-50%, -120%);
+      background: rgba(8,12,24,.92);
+      border: 1px solid rgba(0,229,255,.30);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: var(--text);
+      white-space: nowrap;
+      box-shadow: 0 0 18px rgba(0,229,255,.14);
+    }
+
+    #reactionPopup {
+      position: fixed;
+      z-index: 22;
+      left: 50%;
+      top: 118px;
+      transform: translateX(-50%) scale(.98);
+      display: none;
+      pointer-events: none;
+      max-width: 680px;
+      text-align: center;
+      border-radius: 18px;
+      border: 1px solid rgba(50,255,156,.38);
+      background: rgba(8,12,24,.90);
+      box-shadow: 0 0 38px rgba(50,255,156,.17);
+      backdrop-filter: blur(13px);
+      padding: 13px 18px;
+    }
+
+    #reactionPopup b {
+      color: var(--green);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #reactionPopup span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .kbd {
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.07);
+      border-radius: 6px;
+      padding: 1px 5px;
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    @media (max-width: 1150px) {
+      #ui {
+        grid-template-columns: 300px 1fr 330px;
+      }
+
+      .brand h1 {
+        font-size: 17px;
+      }
+    }
+  </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="threeRoot"></div>
+
+  <div id="ui">
+    <div class="panel top">
+      <div class="brand">
+        <div class="brand-icon">R+</div>
+        <div>
+          <h1>Хімічна лабораторія 10 клас Мороховець Ярослав</h1>
+          <small>3D лабораторія реакцій, осадів, газів і індикаторів</small>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="pill">Рівень: <strong id="levelText">1</strong></div>
+        <div class="pill">XP: <strong id="xpText">0</strong></div>
+        <div class="pill">Монети: <strong id="coinsText">0</strong></div>
+        <div class="pill">Очки: <strong id="scoreText">0</strong></div>
+      </div>
+    </div>
+
+    <div class="panel left">
+      <div class="panel-inner">
+        <div class="section">
+          <h2>Речовини</h2>
+          <span id="selectedReagentText">не вибрано</span>
+        </div>
+
+        <div class="tools">
+          <input id="search" placeholder="Пошук: HCl, кислота..." />
+          <select id="filter">
+            <option value="all">Усі</option>
+            <option value="acid">Кислоти</option>
+            <option value="base">Луги</option>
+            <option value="salt">Солі</option>
+            <option value="indicator">Індикатори</option>
+            <option value="metal">Метали</option>
+            <option value="oxidizer">Окисники</option>
+            <option value="danger">Небезпечні</option>
+          </select>
+        </div>
+
+        <div class="hint">
+          <b>Керування:</b><br>
+          1. Вибери речовину зліва.<br>
+          2. Клікни по колбі на столі.<br>
+          3. Дивись, як речовина реально заливається: пляшка нахиляється, видно струмінь, краплі і потім реакцію.<br><br>
+          Доза: <span class="kbd">1</span> 5 мл,
+          <span class="kbd">2</span> 10 мл,
+          <span class="kbd">3</span> 25 мл.
+        </div>
+
+        <div class="scroll" id="reagentList"></div>
+      </div>
+    </div>
+
+    <div class="panel center">
+      <div class="panel-inner hud">
+        <div class="hud-row">
+          <span>Активна дія:</span>
+          <strong id="actionText">Вибери речовину і натисни на колбу</strong>
+        </div>
+        <div class="hud-row">
+          <span>Спостереження:</span>
+          <strong id="shortObsText">Очікування досліду</strong>
+        </div>
+        <div class="btns">
+          <button class="btn primary" id="dose5">5 мл</button>
+          <button class="btn primary" id="dose10">10 мл</button>
+          <button class="btn primary" id="dose25">25 мл</button>
+          <button class="btn good" id="stirBtn">Перемішати</button>
+          <button class="btn warn" id="heatBtn">Нагріти</button>
+          <button class="btn" id="coolBtn">Охолодити</button>
+          <button class="btn bad" id="clearBtn">Очистити</button>
+          <button class="btn" id="resetSaveBtn">Скинути прогрес</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel right">
+      <div class="panel-inner">
+        <div class="section">
+          <h2>Стан колби</h2>
+          <span id="vesselLabel">не вибрано</span>
+        </div>
+
+        <div class="vessel-card">
+          <h3 id="vesselName">Колба не вибрана</h3>
+          <p id="vesselDesc">Клікни по скляній колбі в 3D-сцені.</p>
+        </div>
+
+        <div class="meter">
+          <div class="meter-row">
+            <span>Обʼєм</span>
+            <span id="volumeText">0 / 250 мл</span>
+          </div>
+          <div class="bar"><div class="fill" id="volumeFill"></div></div>
+        </div>
+
+        <div class="meter">
+          <div class="meter-row">
+            <span>pH</span>
+            <span id="phText">7.0</span>
+          </div>
+          <div class="bar"><div class="fill" id="phFill"></div></div>
+        </div>
+
+        <div class="meter">
+          <div class="meter-row">
+            <span>Температура</span>
+            <span id="tempText">22°C</span>
+          </div>
+          <div class="bar"><div class="fill" id="tempFill"></div></div>
+        </div>
+
+        <div class="section">
+          <h2>Склад</h2>
+          <span id="contentCount">0 речовин</span>
+        </div>
+
+        <div class="scroll" id="contentList" style="max-height: 155px;"></div>
+
+        <div class="section">
+          <h2>Яскраве спостереження</h2>
+          <span>після реакції</span>
+        </div>
+
+        <div class="obs">
+          <div class="obs-main" id="observationBox">
+            <strong>Поки реакції немає.</strong><br>
+            Вибери реагенти та змішай їх у колбі.
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Завдання</h2>
+          <span>рівні</span>
+        </div>
+
+        <div class="scroll" id="questList"></div>
+      </div>
+    </div>
+
+    <div class="panel bottom">
+      <div class="panel-inner">
+        <div class="section">
+          <h2>Журнал дослідів</h2>
+          <span>автоматичний запис</span>
+        </div>
+        <div class="log-list" id="logList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastStack"></div>
+  <div id="danger"></div>
+  <div id="hoverLabel"></div>
+  <div id="reactionPopup"></div>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    const $ = (q) => document.querySelector(q);
+
+    const dom = {
+      root: $("#threeRoot"),
+      level: $("#levelText"),
+      xp: $("#xpText"),
+      coins: $("#coinsText"),
+      score: $("#scoreText"),
+      selectedReagent: $("#selectedReagentText"),
+      search: $("#search"),
+      filter: $("#filter"),
+      reagentList: $("#reagentList"),
+      action: $("#actionText"),
+      shortObs: $("#shortObsText"),
+      vesselLabel: $("#vesselLabel"),
+      vesselName: $("#vesselName"),
+      vesselDesc: $("#vesselDesc"),
+      volumeText: $("#volumeText"),
+      volumeFill: $("#volumeFill"),
+      phText: $("#phText"),
+      phFill: $("#phFill"),
+      tempText: $("#tempText"),
+      tempFill: $("#tempFill"),
+      contentCount: $("#contentCount"),
+      contentList: $("#contentList"),
+      observation: $("#observationBox"),
+      questList: $("#questList"),
+      logList: $("#logList"),
+      toastStack: $("#toastStack"),
+      danger: $("#danger"),
+      hoverLabel: $("#hoverLabel"),
+      reactionPopup: $("#reactionPopup"),
+      dose5: $("#dose5"),
+      dose10: $("#dose10"),
+      dose25: $("#dose25"),
+      stir: $("#stirBtn"),
+      heat: $("#heatBtn"),
+      cool: $("#coolBtn"),
+      clear: $("#clearBtn"),
+      resetSave: $("#resetSaveBtn")
+    };
+
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const cssHex = (n) => "#" + n.toString(16).padStart(6, "0");
+    const time = () => new Date().toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+
+    function clone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function mixColors(colors) {
+      if (!colors.length) return 0x76ddff;
+      let r = 0, g = 0, b = 0;
+      for (const c of colors) {
+        r += (c >> 16) & 255;
+        g += (c >> 8) & 255;
+        b += c & 255;
+      }
+      r = Math.round(r / colors.length);
+      g = Math.round(g / colors.length);
+      b = Math.round(b / colors.length);
+      return (r << 16) + (g << 8) + b;
+    }
+
+    const REAGENTS = [
+      {
+        id: "H2O",
+        name: "Вода",
+        formula: "H₂O",
+        category: "solvent",
+        type: "neutral",
+        color: 0x75dfff,
+        pH: 7,
+        danger: 0,
+        level: 1,
+        tags: ["розчинник", "безпечна"],
+        desc: "Нейтральний розчинник для розбавлення сумішей."
+      },
+      {
+        id: "HCl",
+        name: "Хлоридна кислота",
+        formula: "HCl",
+        category: "acid",
+        type: "acid",
+        strength: 1.35,
+        color: 0xa9efff,
+        pH: 1,
+        danger: 3,
+        level: 1,
+        tags: ["кислота", "їдка"],
+        desc: "Сильна кислота. Реагує з лугами, карбонатами і активними металами."
+      },
+      {
+        id: "NaOH",
+        name: "Натрій гідроксид",
+        formula: "NaOH",
+        category: "base",
+        type: "base",
+        strength: 1.35,
+        color: 0xbffff5,
+        pH: 13,
+        danger: 3,
+        level: 1,
+        tags: ["луг", "їдкий"],
+        desc: "Сильний луг. Нейтралізує кислоти, дає осади з солями металів."
+      },
+      {
+        id: "NaCl",
+        name: "Натрій хлорид",
+        formula: "NaCl",
+        category: "salt",
+        type: "salt",
+        color: 0xffffff,
+        pH: 7,
+        danger: 0,
+        level: 1,
+        tags: ["сіль", "хлорид"],
+        desc: "Звичайна сіль. Джерело хлорид-іонів."
+      },
+      {
+        id: "AgNO3",
+        name: "Аргентум нітрат",
+        formula: "AgNO₃",
+        category: "salt",
+        type: "salt",
+        color: 0xf5f9ff,
+        pH: 6,
+        danger: 2,
+        level: 1,
+        tags: ["срібло", "реактив"],
+        desc: "Реактив на хлорид-іони: утворює білий осад AgCl."
+      },
+      {
+        id: "CuSO4",
+        name: "Купрум(II) сульфат",
+        formula: "CuSO₄",
+        category: "salt",
+        type: "salt",
+        color: 0x168dff,
+        pH: 5.5,
+        danger: 2,
+        level: 1,
+        tags: ["мідь", "синій розчин"],
+        desc: "Синя сіль міді. З лугом дає блакитний осад."
+      },
+      {
+        id: "NaHCO3",
+        name: "Натрій гідрогенкарбонат",
+        formula: "NaHCO₃",
+        category: "salt",
+        type: "carbonate",
+        color: 0xf8ffff,
+        pH: 8.4,
+        danger: 0,
+        level: 1,
+        tags: ["сода", "CO₂"],
+        desc: "З кислотами шипить і виділяє CO₂."
+      },
+      {
+        id: "Phenol",
+        name: "Фенолфталеїн",
+        formula: "Ind",
+        category: "indicator",
+        type: "indicator",
+        color: 0xff74d4,
+        pH: 7,
+        danger: 1,
+        level: 1,
+        tags: ["індикатор", "рожевий у лузі"],
+        desc: "У лужному середовищі стає яскраво-рожевим."
+      },
+      {
+        id: "Litmus",
+        name: "Лакмус",
+        formula: "Ind",
+        category: "indicator",
+        type: "indicator",
+        color: 0x765cff,
+        pH: 7,
+        danger: 0,
+        level: 1,
+        tags: ["індикатор"],
+        desc: "Червоніє в кислоті, синіє в лузі."
+      },
+      {
+        id: "BTB",
+        name: "Бромтимоловий синій",
+        formula: "BTB",
+        category: "indicator",
+        type: "indicator",
+        color: 0x36dfff,
+        pH: 7,
+        danger: 0,
+        level: 1,
+        tags: ["індикатор", "pH"],
+        desc: "Жовтий у кислоті, зелений біля нейтрального pH, синій у лузі."
+      },
+      {
+        id: "KI",
+        name: "Калій йодид",
+        formula: "KI",
+        category: "salt",
+        type: "salt",
+        color: 0xfff2c6,
+        pH: 7,
+        danger: 1,
+        level: 2,
+        tags: ["йодид"],
+        desc: "Дає йодид-іони для якісних реакцій."
+      },
+      {
+        id: "PbNO3",
+        name: "Плюмбум(II) нітрат",
+        formula: "Pb(NO₃)₂",
+        category: "salt",
+        type: "salt",
+        color: 0xf4f4ff,
+        pH: 5.5,
+        danger: 4,
+        level: 2,
+        tags: ["свинець", "токсично"],
+        desc: "Небезпечна сіль свинцю. У симуляції дає жовтий осад з KI."
+      },
+      {
+        id: "BaCl2",
+        name: "Барій хлорид",
+        formula: "BaCl₂",
+        category: "salt",
+        type: "salt",
+        color: 0xf5ffff,
+        pH: 7,
+        danger: 3,
+        level: 2,
+        tags: ["барій", "токсично"],
+        desc: "Реактив на сульфат-іони."
+      },
+      {
+        id: "Na2SO4",
+        name: "Натрій сульфат",
+        formula: "Na₂SO₄",
+        category: "salt",
+        type: "salt",
+        color: 0xfaffff,
+        pH: 7,
+        danger: 0,
+        level: 2,
+        tags: ["сульфат"],
+        desc: "Джерело сульфат-іонів."
+      },
+      {
+        id: "H2O2",
+        name: "Перекис водню",
+        formula: "H₂O₂",
+        category: "oxidizer",
+        type: "oxidizer",
+        color: 0xe6ffff,
+        pH: 6,
+        danger: 2,
+        level: 2,
+        tags: ["окисник", "кисень"],
+        desc: "З каталізатором виділяє кисень і піну."
+      },
+      {
+        id: "MnO2",
+        name: "Манган(IV) оксид",
+        formula: "MnO₂",
+        category: "salt",
+        type: "catalyst",
+        color: 0x202026,
+        pH: 7,
+        danger: 1,
+        level: 2,
+        tags: ["каталізатор"],
+        desc: "Каталізатор розкладу перекису водню."
+      },
+      {
+        id: "I2",
+        name: "Йодний розчин",
+        formula: "I₂",
+        category: "salt",
+        type: "iodine",
+        color: 0x763200,
+        pH: 6,
+        danger: 2,
+        level: 2,
+        tags: ["йод", "бурий"],
+        desc: "З крохмалем утворює темно-синій комплекс."
+      },
+      {
+        id: "Starch",
+        name: "Крохмаль",
+        formula: "(C₆H₁₀O₅)n",
+        category: "organic",
+        type: "organic",
+        color: 0xfff4dc,
+        pH: 7,
+        danger: 0,
+        level: 2,
+        tags: ["органіка"],
+        desc: "Реагує з йодом з темно-синім забарвленням."
+      },
+      {
+        id: "Zn",
+        name: "Цинк",
+        formula: "Zn",
+        category: "metal",
+        type: "metal",
+        color: 0xcbd4dc,
+        pH: 7,
+        danger: 1,
+        level: 3,
+        tags: ["метал", "водень"],
+        desc: "З кислотою виділяє водень."
+      },
+      {
+        id: "Mg",
+        name: "Магній",
+        formula: "Mg",
+        category: "metal",
+        type: "metal",
+        color: 0xdde6ef,
+        pH: 7,
+        danger: 2,
+        level: 3,
+        tags: ["метал", "активний"],
+        desc: "Активний метал. З кислотою дає помітне виділення H₂."
+      },
+      {
+        id: "FeCl3",
+        name: "Ферум(III) хлорид",
+        formula: "FeCl₃",
+        category: "salt",
+        type: "salt",
+        color: 0xc46a16,
+        pH: 3,
+        danger: 2,
+        level: 3,
+        tags: ["ферум", "комплекс"],
+        desc: "З тіоціанатом утворює криваво-червоний комплекс."
+      },
+      {
+        id: "KSCN",
+        name: "Калій тіоціанат",
+        formula: "KSCN",
+        category: "salt",
+        type: "salt",
+        color: 0xffffff,
+        pH: 7,
+        danger: 2,
+        level: 3,
+        tags: ["тіоціанат"],
+        desc: "Реактив на Fe³⁺."
+      },
+      {
+        id: "KMnO4",
+        name: "Калій перманганат",
+        formula: "KMnO₄",
+        category: "oxidizer",
+        type: "oxidizer",
+        color: 0x5b0f8f,
+        pH: 7,
+        danger: 4,
+        level: 4,
+        tags: ["сильний окисник", "фіолетовий"],
+        desc: "Сильний окисник. У симуляції дає яскраві кольорові ефекти."
+      },
+      {
+        id: "NH3",
+        name: "Амоніак водний",
+        formula: "NH₃·H₂O",
+        category: "base",
+        type: "base",
+        strength: 0.95,
+        color: 0xcffff1,
+        pH: 11.5,
+        danger: 3,
+        level: 4,
+        tags: ["луг", "запах", "небезпечно"],
+        desc: "Лужний розчин. У реальності має різкий запах."
+      },
+      {
+        id: "H2SO4",
+        name: "Сульфатна кислота",
+        formula: "H₂SO₄",
+        category: "acid",
+        type: "acid",
+        strength: 1.55,
+        color: 0xe8f6ff,
+        pH: 0.5,
+        danger: 5,
+        level: 5,
+        tags: ["дуже небезпечно", "сильна кислота"],
+        desc: "Дуже небезпечна сильна кислота. Тільки симуляція."
+      },
+      {
+        id: "HNO3",
+        name: "Нітратна кислота",
+        formula: "HNO₃",
+        category: "acid",
+        type: "acid",
+        strength: 1.45,
+        color: 0xfff2a6,
+        pH: 1,
+        danger: 5,
+        level: 5,
+        tags: ["окисна кислота", "дуже небезпечно"],
+        desc: "Сильна окисна кислота. Тільки для віртуального досліду."
+      }
+    ];
+
+    const R = Object.fromEntries(REAGENTS.map(r => [r.id, r]));
+
+    const REACTIONS = [
+      {
+        id: "neutral",
+        name: "Нейтралізація",
+        eq: "HCl + NaOH → NaCl + H₂O",
+        req: ["HCl", "NaOH"],
+        color: 0x8ff4ff,
+        effect: "flash",
+        score: 18,
+        once: false,
+        obs: "Кислота і луг нейтралізуються. pH наближається до 7, суміш трохи нагрівається."
+      },
+      {
+        id: "agcl",
+        name: "Білий осад AgCl",
+        eq: "AgNO₃ + NaCl → AgCl↓ + NaNO₃",
+        req: ["AgNO3", "NaCl"],
+        color: 0xe8f0ff,
+        precipitate: 0xffffff,
+        effect: "precipitate",
+        score: 28,
+        once: true,
+        obs: "У колбі зʼявляється білий сирнистий осад аргентум хлориду."
+      },
+      {
+        id: "cuoh2",
+        name: "Блакитний осад Cu(OH)₂",
+        eq: "CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄",
+        req: ["CuSO4", "NaOH"],
+        color: 0x229cff,
+        precipitate: 0x55c8ff,
+        effect: "precipitate",
+        score: 30,
+        once: true,
+        obs: "Розчин стає яскравішим, на дні утворюється блакитний осад."
+      },
+      {
+        id: "co2",
+        name: "Виділення CO₂",
+        eq: "HCl + NaHCO₃ → NaCl + CO₂↑ + H₂O",
+        req: ["HCl", "NaHCO3"],
+        color: 0xc9f8ff,
+        effect: "gas",
+        gasColor: 0xffffff,
+        score: 24,
+        once: false,
+        obs: "Починається активне шипіння: зʼявляється багато бульбашок CO₂."
+      },
+      {
+        id: "pbi2",
+        name: "Жовтий осад PbI₂",
+        eq: "Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃",
+        req: ["PbNO3", "KI"],
+        color: 0xffdf3d,
+        precipitate: 0xffd21a,
+        effect: "precipitate",
+        score: 42,
+        once: true,
+        obs: "Випадає яскраво-жовтий осад плюмбум(II) йодиду."
+      },
+      {
+        id: "baso4",
+        name: "Білий осад BaSO₄",
+        eq: "BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl",
+        req: ["BaCl2", "Na2SO4"],
+        color: 0xf4fbff,
+        precipitate: 0xf9f9f9,
+        effect: "precipitate",
+        score: 34,
+        once: true,
+        obs: "Утворюється дрібний білий осад барій сульфату."
+      },
+      {
+        id: "o2foam",
+        name: "Розклад перекису водню",
+        eq: "2H₂O₂ → 2H₂O + O₂↑",
+        req: ["H2O2", "MnO2"],
+        color: 0xeaffff,
+        effect: "foam",
+        gasColor: 0xeaffff,
+        score: 40,
+        once: false,
+        obs: "Каталізатор різко прискорює реакцію: видно піну і бульбашки кисню."
+      },
+      {
+        id: "iodine_starch",
+        name: "Йод-крохмальна реакція",
+        eq: "I₂ + крохмаль → темно-синій комплекс",
+        req: ["I2", "Starch"],
+        color: 0x05083d,
+        effect: "darkflash",
+        score: 35,
+        once: true,
+        obs: "Розчин різко темніє до синьо-чорного кольору."
+      },
+      {
+        id: "iron_scn",
+        name: "Криваво-червоний комплекс",
+        eq: "Fe³⁺ + SCN⁻ → [FeSCN]²⁺",
+        req: ["FeCl3", "KSCN"],
+        color: 0xb3001b,
+        effect: "flash",
+        score: 45,
+        once: true,
+        obs: "Утворюється інтенсивне криваво-червоне забарвлення."
+      },
+      {
+        id: "zn_h2",
+        name: "Виділення водню",
+        eq: "Zn + 2HCl → ZnCl₂ + H₂↑",
+        req: ["Zn", "HCl"],
+        color: 0xdaf8ff,
+        effect: "gas",
+        gasColor: 0xcfeeff,
+        score: 36,
+        once: false,
+        obs: "Метал реагує з кислотою. Виділяються бульбашки водню."
+      },
+      {
+        id: "mg_h2",
+        name: "Активне виділення H₂",
+        eq: "Mg + 2HCl → MgCl₂ + H₂↑",
+        req: ["Mg", "HCl"],
+        color: 0xe8fbff,
+        effect: "sparkGas",
+        gasColor: 0xdfffff,
+        score: 48,
+        once: false,
+        obs: "Магній реагує активніше: багато бульбашок, спалах і нагрівання."
+      },
+      {
+        id: "permanganate_peroxide",
+        name: "Окисно-відновний ефект",
+        eq: "KMnO₄ + H₂O₂ → O₂↑ + продукти Mn",
+        req: ["KMnO4", "H2O2"],
+        color: 0x7b2cff,
+        effect: "purpleGas",
+        gasColor: 0xb88cff,
+        score: 55,
+        once: false,
+        obs: "Фіолетовий колір стає дуже насиченим, видно бульбашки та фіолетове світіння."
+      },
+      {
+        id: "ammonia_copper",
+        name: "Синій комплекс міді",
+        eq: "Cu²⁺ + NH₃ → синій комплекс",
+        req: ["CuSO4", "NH3"],
+        color: 0x003dff,
+        effect: "flash",
+        score: 46,
+        once: true,
+        obs: "Розчин стає глибоко-синім через утворення комплексної сполуки міді."
+      },
+      {
+        id: "strong_acid_base",
+        name: "Сильне нагрівання при нейтралізації",
+        eq: "H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O",
+        req: ["H2SO4", "NaOH"],
+        color: 0xcfffff,
+        effect: "dangerFlash",
+        score: 65,
+        once: false,
+        obs: "Сильна кислота реагує з лугом із помітним нагріванням. У реальності це небезпечно."
+      },
+      {
+        id: "nitric_metal",
+        name: "Небезпечна окисна реакція",
+        eq: "HNO₃ + Mg → солі + гази",
+        req: ["HNO3", "Mg"],
+        color: 0xffc14d,
+        effect: "toxicSmoke",
+        gasColor: 0xffa24d,
+        score: 70,
+        once: false,
+        obs: "У симуляції видно помаранчевий дим і різкий спалах. Реальний дослід небезпечний."
+      }
+    ];
+
+    const QUESTS = [
+      { id: "q1", lvl: 1, title: "Нейтралізація", text: "Змішай HCl і NaOH.", reaction: "neutral", reward: 60, xp: 35 },
+      { id: "q2", lvl: 1, title: "Білий осад", text: "Отримай AgCl з AgNO₃ і NaCl.", reaction: "agcl", reward: 80, xp: 40 },
+      { id: "q3", lvl: 1, title: "Газ CO₂", text: "Змішай кислоту і соду.", reaction: "co2", reward: 70, xp: 35 },
+      { id: "q4", lvl: 1, title: "Блакитний осад", text: "Отримай Cu(OH)₂.", reaction: "cuoh2", reward: 85, xp: 45 },
+      { id: "q5", lvl: 2, title: "Жовтий осад", text: "Отримай PbI₂.", reaction: "pbi2", reward: 120, xp: 65 },
+      { id: "q6", lvl: 2, title: "Піна і кисень", text: "Розклади H₂O₂ каталізатором MnO₂.", reaction: "o2foam", reward: 120, xp: 65 },
+      { id: "q7", lvl: 3, title: "Водень", text: "Отримай H₂ з металу і кислоти.", reaction: "zn_h2", reward: 140, xp: 75 },
+      { id: "q8", lvl: 3, title: "Криваво-червоний комплекс", text: "Змішай FeCl₃ і KSCN.", reaction: "iron_scn", reward: 150, xp: 80 },
+      { id: "q9", lvl: 4, title: "Фіолетовий окисник", text: "Проведи реакцію KMnO₄ з H₂O₂.", reaction: "permanganate_peroxide", reward: 190, xp: 95 },
+      { id: "q10", lvl: 5, title: "Небезпечна зона", text: "Проведи сильну кислотно-лужну реакцію.", reaction: "strong_acid_base", reward: 250, xp: 130 }
+    ];
+
+    const SAVE_KEY = "chemistry_9_morokhovets_yaroslav_save_v2";
+
+    const defaultSave = {
+      level: 1,
+      xp: 0,
+      coins: 100,
+      score: 0,
+      dose: 10,
+      quests: [],
+      reactions: []
+    };
+
+    function loadSave() {
+      try {
+        return { ...clone(defaultSave), ...JSON.parse(localStorage.getItem(SAVE_KEY) || "{}") };
+      } catch {
+        return clone(defaultSave);
+      }
+    }
+
+    function saveGame() {
+      localStorage.setItem(SAVE_KEY, JSON.stringify(game.save));
+    }
+
+    const game = {
+      save: loadSave(),
+      selectedReagent: null,
+      selectedVessel: null,
+      pouring: false,
+      vessels: [],
+      bottles: [],
+      effects: [],
+      scene: null,
+      camera: null,
+      renderer: null,
+      controls: null,
+      raycaster: new THREE.Raycaster(),
+      pointer: new THREE.Vector2(),
+      clock: new THREE.Clock()
+    };
+
+    class Vessel {
+      constructor(id, name, position) {
+        this.id = id;
+        this.name = name;
+        this.position = position.clone();
+        this.max = 250;
+        this.volume = 0;
+        this.visualVolume = 0;
+        this.pH = 7;
+        this.temp = 22;
+        this.contents = {};
+        this.triggered = [];
+        this.color = 0x75dfff;
+        this.targetColor = 0x75dfff;
+        this.group = null;
+        this.liquid = null;
+        this.glow = null;
+        this.precipitate = null;
+        this.foam = null;
+        this.warning = false;
+      }
+
+      has(id) {
+        return (this.contents[id] || 0) > 0;
+      }
+
+      add(id, amount) {
+        this.contents[id] = (this.contents[id] || 0) + amount;
+        this.volume = clamp(this.volume + amount, 0, this.max);
+      }
+
+      clear() {
+        this.volume = 0;
+        this.visualVolume = 0;
+        this.pH = 7;
+        this.temp = 22;
+        this.contents = {};
+        this.triggered = [];
+        this.color = 0x75dfff;
+        this.targetColor = 0x75dfff;
+        this.warning = false;
+      }
+    }
+
+    function log(text, type = "") {
+      const d = document.createElement("div");
+      d.className = `log-entry ${type}`;
+      d.innerHTML = `<span class="time">[${time()}]</span> ${text}`;
+      dom.logList.prepend(d);
+      while (dom.logList.children.length > 160) dom.logList.lastChild.remove();
+    }
+
+    function toast(title, text, kind = "", ms = 3300) {
+      const t = document.createElement("div");
+      t.className = `toast ${kind}`;
+      t.innerHTML = `<div class="toast-title">${title}</div><div class="toast-text">${text}</div>`;
+      dom.toastStack.appendChild(t);
+      setTimeout(() => {
+        t.style.transition = ".2s ease";
+        t.style.opacity = "0";
+        t.style.transform = "translateX(16px) scale(.98)";
+        setTimeout(() => t.remove(), 220);
+      }, ms);
+    }
+
+    function danger(text) {
+      dom.danger.textContent = text;
+      dom.danger.style.display = "block";
+      clearTimeout(danger._t);
+      danger._t = setTimeout(() => dom.danger.style.display = "none", 3200);
+    }
+
+    function popupReaction(name, obs) {
+      dom.reactionPopup.innerHTML = `<b>${name}</b><span>${obs}</span>`;
+      dom.reactionPopup.style.display = "block";
+      clearTimeout(popupReaction._t);
+      popupReaction._t = setTimeout(() => dom.reactionPopup.style.display = "none", 3600);
+    }
+
+    function setObservation(title, text) {
+      dom.observation.innerHTML = `<strong>${title}</strong><br>${text}`;
+      dom.shortObs.textContent = title;
+    }
+
+    function initThree() {
+      game.scene = new THREE.Scene();
+      game.scene.background = new THREE.Color(0x05070d);
+      game.scene.fog = new THREE.Fog(0x05070d, 8, 30);
+
+      game.camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
+      game.camera.position.set(5.5, 5.0, 7.3);
+
+      game.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      game.renderer.setSize(innerWidth, innerHeight);
+      game.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      game.renderer.shadowMap.enabled = true;
+      game.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      game.renderer.outputColorSpace = THREE.SRGBColorSpace;
+      dom.root.appendChild(game.renderer.domElement);
+
+      game.controls = new OrbitControls(game.camera, game.renderer.domElement);
+      game.controls.target.set(0, 1.15, 0);
+      game.controls.enableDamping = true;
+      game.controls.minDistance = 4.4;
+      game.controls.maxDistance = 13;
+      game.controls.maxPolarAngle = Math.PI * .49;
+
+      addLights();
+      createRoom();
+      createTable();
+      createVessels();
+      createBottleRack();
+
+      addEventListener("resize", resize);
+      game.renderer.domElement.addEventListener("pointermove", pointerMove);
+      game.renderer.domElement.addEventListener("pointerdown", pointerDown);
+    }
+
+    function addLights() {
+      const amb = new THREE.AmbientLight(0x9ebdff, .38);
+      game.scene.add(amb);
+
+      const key = new THREE.DirectionalLight(0xffffff, 1.25);
+      key.position.set(4, 8, 6);
+      key.castShadow = true;
+      key.shadow.mapSize.set(2048, 2048);
+      key.shadow.camera.left = -8;
+      key.shadow.camera.right = 8;
+      key.shadow.camera.top = 8;
+      key.shadow.camera.bottom = -8;
+      game.scene.add(key);
+
+      const c = new THREE.PointLight(0x00e5ff, 2.2, 11);
+      c.position.set(-3.2, 3.2, 2.2);
+      game.scene.add(c);
+
+      const p = new THREE.PointLight(0x9b5cff, 1.8, 10);
+      p.position.set(3.5, 2.8, -2.6);
+      game.scene.add(p);
+
+      const g = new THREE.PointLight(0x32ff9c, 1.25, 8);
+      g.position.set(0, 2.0, 3.0);
+      game.scene.add(g);
+    }
+
+    function createRoom() {
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(44, 44),
+        new THREE.MeshStandardMaterial({ color: 0x070a12, roughness: .7, metalness: .12 })
+      );
+      floor.rotation.x = -Math.PI / 2;
+      floor.receiveShadow = true;
+      game.scene.add(floor);
+
+      const grid = new THREE.GridHelper(44, 44, 0x123c54, 0x0d1b2d);
+      grid.position.y = .01;
+      game.scene.add(grid);
+
+      const wall = new THREE.Mesh(
+        new THREE.PlaneGeometry(44, 17),
+        new THREE.MeshStandardMaterial({ color: 0x081126, roughness: .85, metalness: .05 })
+      );
+      wall.position.set(0, 8.5, -9.4);
+      game.scene.add(wall);
+
+      for (let i = 0; i < 18; i++) {
+        const line = new THREE.Mesh(
+          new THREE.BoxGeometry(.018, .018, 20),
+          new THREE.MeshBasicMaterial({
+            color: i % 4 === 0 ? 0x00e5ff : 0x102844,
+            transparent: true,
+            opacity: i % 4 === 0 ? .32 : .18
+          })
+        );
+        line.position.set(-8.5 + i, .03, 0);
+        game.scene.add(line);
+      }
+
+      createBackShelves();
+    }
+
+    function createBackShelves() {
+      const mat = new THREE.MeshStandardMaterial({ color: 0x111b34, roughness: .4, metalness: .35 });
+      for (let s = 0; s < 2; s++) {
+        const x = s === 0 ? -4.5 : 4.5;
+        for (let level = 0; level < 2; level++) {
+          const shelf = new THREE.Mesh(new THREE.BoxGeometry(3.4, .12, .5), mat);
+          shelf.position.set(x, 2.25 + level * .78, -3.3);
+          shelf.castShadow = true;
+          game.scene.add(shelf);
+
+          for (let i = 0; i < 6; i++) {
+            const b = decorBottle(0x222222 + Math.floor(Math.random() * 0xcccccc));
+            b.position.set(x - 1.25 + i * .5, 2.48 + level * .78, -3.3);
+            game.scene.add(b);
+          }
+        }
+      }
+    }
+
+    function decorBottle(color) {
+      const g = new THREE.Group();
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(.11, .13, .34, 20),
+        new THREE.MeshPhysicalMaterial({
+          color,
+          roughness: .14,
+          transmission: .25,
+          transparent: true,
+          opacity: .72
+        })
+      );
+      const neck = new THREE.Mesh(
+        new THREE.CylinderGeometry(.055, .065, .15, 16),
+        new THREE.MeshStandardMaterial({ color: 0xdcefff, roughness: .22 })
+      );
+      neck.position.y = .245;
+      g.add(body, neck);
+      return g;
+    }
+
+    function createTable() {
+      const top = new THREE.Mesh(
+        new THREE.BoxGeometry(7.4, .28, 3.9),
+        new THREE.MeshStandardMaterial({ color: 0x151f3b, roughness: .35, metalness: .22 })
+      );
+      top.position.set(0, .82, 0);
+      top.castShadow = true;
+      top.receiveShadow = true;
+      game.scene.add(top);
+
+      const edgeMat = new THREE.MeshStandardMaterial({
+        color: 0x00e5ff,
+        roughness: .25,
+        metalness: .5,
+        emissive: 0x00374a,
+        emissiveIntensity: .55
+      });
+
+      for (const z of [-1.98, 1.98]) {
+        const e = new THREE.Mesh(new THREE.BoxGeometry(7.55, .055, .055), edgeMat);
+        e.position.set(0, 1.0, z);
+        game.scene.add(e);
+      }
+
+      const legMat = new THREE.MeshStandardMaterial({ color: 0x0b1324, roughness: .35, metalness: .55 });
+      for (const p of [[-3.25,.35,-1.55],[3.25,.35,-1.55],[-3.25,.35,1.55],[3.25,.35,1.55]]) {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(.22, .9, .22), legMat);
+        leg.position.set(...p);
+        leg.castShadow = true;
+        game.scene.add(leg);
+      }
+    }
+
+    function createVessels() {
+      makeVessel("a", "Колба A", new THREE.Vector3(-1.85, 1.08, .18));
+      makeVessel("b", "Колба B", new THREE.Vector3(0, 1.08, .18));
+      makeVessel("c", "Колба C", new THREE.Vector3(1.85, 1.08, .18));
+    }
+
+    function makeVessel(id, name, position) {
+      const v = new Vessel(id, name, position);
+
+      const group = new THREE.Group();
+      group.position.copy(position);
+
+      const glass = new THREE.MeshPhysicalMaterial({
+        color: 0xdffaff,
+        roughness: .04,
+        metalness: 0,
+        transmission: .78,
+        thickness: .48,
+        transparent: true,
+        opacity: .32,
+        side: THREE.DoubleSide
+      });
+
+      const bodyGeo = new THREE.CylinderGeometry(.42, .60, 1.28, 64, 1, true);
+      const body = new THREE.Mesh(bodyGeo, glass);
+      body.position.y = .62;
+      body.castShadow = true;
+      body.receiveShadow = true;
+      body.userData = { type: "vessel", id };
+      group.add(body);
+
+      const wire = new THREE.Mesh(
+        bodyGeo,
+        new THREE.MeshBasicMaterial({
+          color: 0x00e5ff,
+          transparent: true,
+          opacity: .23,
+          wireframe: true
+        })
+      );
+      wire.position.y = .62;
+      wire.userData = { type: "vessel", id };
+      group.add(wire);
+
+      const bottom = new THREE.Mesh(new THREE.CylinderGeometry(.60, .60, .035, 64), glass);
+      bottom.position.y = -.02;
+      group.add(bottom);
+
+      const neck = new THREE.Mesh(new THREE.CylinderGeometry(.22, .31, .42, 48, 1, true), glass);
+      neck.position.y = 1.45;
+      neck.userData = { type: "vessel", id };
+      group.add(neck);
+
+      const liquid = new THREE.Mesh(
+        new THREE.CylinderGeometry(.54, .56, .01, 64),
+        new THREE.MeshPhysicalMaterial({
+          color: 0x75dfff,
+          roughness: .18,
+          metalness: 0,
+          transmission: .12,
+          transparent: true,
+          opacity: .78,
+          emissive: 0x003344,
+          emissiveIntensity: .15
+        })
+      );
+      liquid.position.y = .02;
+      liquid.visible = false;
+      liquid.userData = { type: "vessel", id };
+      group.add(liquid);
+
+      const glow = new THREE.Mesh(
+        new THREE.SphereGeometry(.78, 32, 16),
+        new THREE.MeshBasicMaterial({
+          color: 0x00e5ff,
+          transparent: true,
+          opacity: 0,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        })
+      );
+      glow.position.y = .68;
+      group.add(glow);
+
+      v.group = group;
+      v.liquid = liquid;
+      v.glow = glow;
+
+      group.userData = { type: "vessel", id };
+      game.vessels.push(v);
+      game.scene.add(group);
+    }
+
+    function createBottleRack() {
+      const base = new THREE.Mesh(
+        new THREE.BoxGeometry(6.6, .12, .58),
+        new THREE.MeshStandardMaterial({ color: 0x0d172c, roughness: .36, metalness: .42 })
+      );
+      base.position.set(0, 1.04, -1.28);
+      base.castShadow = true;
+      game.scene.add(base);
+
+      const visible = REAGENTS.slice(0, 12);
+      for (let i = 0; i < visible.length; i++) {
+        const x = -3.1 + i * .56;
+        makeSmallBottle(visible[i], new THREE.Vector3(x, 1.34, -1.28));
+      }
+    }
+
+    function makeSmallBottle(r, pos) {
+      const g = new THREE.Group();
+      g.position.copy(pos);
+
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(.145, .17, .52, 28),
+        new THREE.MeshPhysicalMaterial({
+          color: r.color,
+          roughness: .1,
+          transmission: .32,
+          thickness: .25,
+          transparent: true,
+          opacity: .74
+        })
+      );
+      body.castShadow = true;
+      body.userData = { type: "bottle", id: r.id };
+      g.add(body);
+
+      const cap = new THREE.Mesh(
+        new THREE.CylinderGeometry(.11, .115, .105, 24),
+        new THREE.MeshStandardMaterial({ color: r.danger >= 4 ? 0xff365c : 0xe8faff, roughness: .25, metalness: .25 })
+      );
+      cap.position.y = .32;
+      cap.userData = { type: "bottle", id: r.id };
+      g.add(cap);
+
+      const label = new THREE.Mesh(
+        new THREE.BoxGeometry(.25, .15, .012),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .78 })
+      );
+      label.position.set(0, .02, .153);
+      g.add(label);
+
+      g.userData = { type: "bottle", id: r.id };
+      game.bottles.push(g);
+      game.scene.add(g);
+    }
+
+    function createPourBottle(r, vessel, amount) {
+      const g = new THREE.Group();
+      const start = vessel.position.clone().add(new THREE.Vector3(-.7, 1.9, .15));
+      const end = vessel.position.clone().add(new THREE.Vector3(-.32, 1.62, .05));
+      g.position.copy(start);
+
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(.16, .18, .58, 30),
+        new THREE.MeshPhysicalMaterial({
+          color: r.color,
+          roughness: .08,
+          transmission: .28,
+          transparent: true,
+          opacity: .82
+        })
+      );
+      body.castShadow = true;
+
+      const neck = new THREE.Mesh(
+        new THREE.CylinderGeometry(.075, .085, .25, 22),
+        new THREE.MeshStandardMaterial({ color: 0xf2fbff, roughness: .18, metalness: .12 })
+      );
+      neck.position.y = .42;
+
+      const cap = new THREE.Mesh(
+        new THREE.CylinderGeometry(.09, .09, .07, 22),
+        new THREE.MeshStandardMaterial({ color: r.danger >= 4 ? 0xff365c : 0x111111, roughness: .25 })
+      );
+      cap.position.y = .58;
+
+      g.add(body, neck, cap);
+      g.rotation.z = -1.05;
+      g.rotation.x = .12;
+
+      const stream = new THREE.Mesh(
+        new THREE.CylinderGeometry(.025, .035, .85, 18),
+        new THREE.MeshBasicMaterial({
+          color: r.color,
+          transparent: true,
+          opacity: .86,
+          blending: THREE.AdditiveBlending
+        })
+      );
+      stream.position.copy(vessel.position.clone().add(new THREE.Vector3(-.04, 1.12, .02)));
+      stream.rotation.x = 0;
+      stream.visible = false;
+      game.scene.add(stream);
+
+      const droplets = [];
+      for (let i = 0; i < 24; i++) {
+        const d = new THREE.Mesh(
+          new THREE.SphereGeometry(.018 + Math.random() * .018, 12, 8),
+          new THREE.MeshBasicMaterial({
+            color: r.color,
+            transparent: true,
+            opacity: .88,
+            blending: THREE.AdditiveBlending
+          })
+        );
+        d.position.copy(vessel.position.clone().add(new THREE.Vector3(
+          -.04 + (Math.random() - .5) * .08,
+          1.45 - Math.random() * .85,
+          .02 + (Math.random() - .5) * .08
+        )));
+        d.visible = false;
+        d.userData.speed = .75 + Math.random() * .65;
+        game.scene.add(d);
+        droplets.push(d);
+      }
+
+      game.scene.add(g);
+
+      const effect = {
+        type: "pour",
+        group: g,
+        stream,
+        droplets,
+        vessel,
+        reagent: r,
+        amount,
+        age: 0,
+        duration: 1.45,
+        start,
+        end,
+        done: false
+      };
+
+      game.effects.push(effect);
+      game.pouring = true;
+      return effect;
+    }
+
+    function updatePour(effect, dt) {
+      effect.age += dt;
+      const t = clamp(effect.age / effect.duration, 0, 1);
+      const smooth = t * t * (3 - 2 * t);
+
+      effect.group.position.lerpVectors(effect.start, effect.end, smooth);
+      effect.group.rotation.z = lerp(-.2, -1.25, smooth);
+
+      if (t > .25 && t < .96) {
+        effect.stream.visible = true;
+        effect.stream.material.opacity = .86 * Math.sin(Math.PI * clamp((t - .25) / .71, 0, 1));
+
+        for (const d of effect.droplets) {
+          d.visible = true;
+          d.position.y -= d.userData.speed * dt;
+          d.position.x += Math.sin(effect.age * 9 + d.id) * dt * .025;
+          if (d.position.y < effect.vessel.position.y + .35) {
+            d.position.y = effect.vessel.position.y + 1.45;
+          }
+        }
+      }
+
+      if (!effect.done && t > .58) {
+        effect.done = true;
+        applyReagent(effect.vessel, effect.reagent, effect.amount);
+      }
+
+      if (t >= 1) {
+        removeObject(effect.group);
+        game.scene.remove(effect.stream);
+        effect.stream.geometry.dispose();
+        effect.stream.material.dispose();
+        for (const d of effect.droplets) {
+          game.scene.remove(d);
+          d.geometry.dispose();
+          d.material.dispose();
+        }
+        game.effects.splice(game.effects.indexOf(effect), 1);
+        game.pouring = false;
+      }
+    }
+
+    function removeObject(obj) {
+      obj.traverse(o => {
+        if (o.geometry) o.geometry.dispose();
+        if (o.material) {
+          if (Array.isArray(o.material)) o.material.forEach(m => m.dispose());
+          else o.material.dispose();
+        }
+      });
+      obj.parent?.remove(obj);
+    }
+
+    function applyReagent(v, r, amount) {
+      if (v.volume + amount > v.max) {
+        toast("Переповнення", `${v.name} не вміщує ще ${amount} мл.`, "bad");
+        game.pouring = false;
+        return;
+      }
+
+      v.add(r.id, amount);
+      log(`Додано <b>${amount} мл ${r.formula}</b> (${r.name}) у ${v.name}.`);
+      setObservation("Речовину додано", `${r.formula} потрапив у ${v.name}. Суміш змінює колір і pH.`);
+
+      calculateChemistry(v);
+      checkReactions(v);
+      safetyCheck(v);
+
+      updateVesselPanel();
+      pulse(v, r.color, .28);
+
+      if (r.danger >= 4) {
+        toast("Небезпечна речовина", `${r.name}: тільки віртуальний дослід.`, "bad", 4200);
+      } else if (r.danger >= 3) {
+        toast("Обережно", `${r.name} є їдкою/небезпечною речовиною.`, "warn");
+      }
+    }
+
+    function calculateChemistry(v) {
+      const entries = Object.entries(v.contents);
+      if (!entries.length) {
+        v.pH = 7;
+        v.targetColor = 0x75dfff;
+        return;
+      }
+
+      let acid = 0;
+      let base = 0;
+      const colors = [];
+
+      for (const [id, amount] of entries) {
+        const r = R[id];
+        if (!r) continue;
+        const w = amount / Math.max(1, v.volume);
+        colors.push(r.color);
+
+        if (r.type === "acid") acid += w * (r.strength || 1);
+        if (r.type === "base" || r.type === "carbonate") base += w * (r.strength || .65);
+
+        if (typeof r.pH === "number") {
+          if (r.pH < 7) acid += w * ((7 - r.pH) / 7);
+          if (r.pH > 7) base += w * ((r.pH - 7) / 7);
+        }
+      }
+
+      v.pH = clamp(7 + (base - acid) * 5.6, 0, 14);
+      v.targetColor = mixColors(colors);
+
+      if (v.has("Phenol") && v.pH > 8.2) v.targetColor = 0xff4fd2;
+      if (v.has("Litmus")) {
+        if (v.pH < 6) v.targetColor = 0xff365c;
+        else if (v.pH > 8) v.targetColor = 0x245cff;
+        else v.targetColor = 0x815cff;
+      }
+      if (v.has("BTB")) {
+        if (v.pH < 6.2) v.targetColor = 0xffd84d;
+        else if (v.pH > 7.6) v.targetColor = 0x1472ff;
+        else v.targetColor = 0x26d96d;
+      }
+    }
+
+    function checkReactions(v) {
+      for (const reaction of REACTIONS) {
+        if (!reaction.req.every(id => v.has(id))) continue;
+        if (reaction.once && v.triggered.includes(reaction.id)) continue;
+
+        if (reaction.once) v.triggered.push(reaction.id);
+
+        v.targetColor = reaction.color;
+        v.temp += reaction.effect.includes("danger") ? 18 : reaction.effect.includes("Gas") ? 6 : 3;
+
+        game.save.score += reaction.score;
+        if (!game.save.reactions.includes(reaction.id)) game.save.reactions.push(reaction.id);
+
+        log(`<b>${reaction.name}</b>: ${reaction.eq}<br>${reaction.obs}`, "reaction");
+        toast("Реакція!", `${reaction.name}: +${reaction.score} очок`, reaction.effect.includes("danger") || reaction.effect.includes("toxic") ? "bad" : "good", 4300);
+        setObservation(reaction.name, `${reaction.eq}<br>${reaction.obs}`);
+        popupReaction(reaction.name, reaction.obs);
+
+        runVisualReaction(v, reaction);
+        completeQuest(reaction.id);
+
+        saveGame();
+        renderStats();
+      }
+    }
+
+    function runVisualReaction(v, reaction) {
+      pulse(v, reaction.color || 0xffffff, reaction.effect.includes("danger") ? .58 : .38);
+
+      if (reaction.precipitate) createPrecipitate(v, reaction.precipitate);
+      if (reaction.effect === "gas") createBubbles(v, reaction.gasColor || 0xffffff, 34, 4.0);
+      if (reaction.effect === "sparkGas") {
+        createBubbles(v, reaction.gasColor || 0xffffff, 48, 4.5);
+        createSparks(v, 24);
+      }
+      if (reaction.effect === "foam") {
+        createBubbles(v, reaction.gasColor || 0xffffff, 62, 5.5);
+        createFoam(v);
+      }
+      if (reaction.effect === "purpleGas") {
+        createBubbles(v, reaction.gasColor || 0xb88cff, 56, 5.0);
+        createSmoke(v, 0x8f44ff, 26, 4.2);
+      }
+      if (reaction.effect === "darkflash") {
+        createSmoke(v, 0x070a40, 20, 3.0);
+      }
+      if (reaction.effect === "dangerFlash") {
+        createBubbles(v, 0xffe1a6, 56, 4.2);
+        createSparks(v, 36);
+        danger("⚠ Сильне нагрівання. У реальній лабораторії таку реакцію проводять тільки з захистом.");
+      }
+      if (reaction.effect === "toxicSmoke") {
+        createSmoke(v, 0xff9a35, 42, 5.0);
+        createSparks(v, 22);
+        danger("☣ Небезпечна окисна реакція. Це лише симуляція, не повторювати в реальності.");
+      }
+      if (reaction.effect === "precipitate") {
+        createSwirl(v, reaction.color, 22);
+      }
+      if (reaction.effect === "flash") {
+        createSwirl(v, reaction.color, 18);
+      }
+    }
+
+    function createPrecipitate(v, color) {
+      if (v.precipitate) removeObject(v.precipitate);
+
+      const mesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(.50, .57, .08, 48),
+        new THREE.MeshStandardMaterial({
+          color,
+          roughness: .9,
+          transparent: true,
+          opacity: .94
+        })
+      );
+      mesh.position.y = .055;
+      v.group.add(mesh);
+      v.precipitate = mesh;
+    }
+
+    function createFoam(v) {
+      if (v.foam) removeObject(v.foam);
+
+      const group = new THREE.Group();
+      const fill = clamp(v.volume / v.max, .04, 1);
+      const y = lerp(.18, 1.18, fill);
+
+      for (let i = 0; i < 35; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const d = Math.random() * .42;
+        const s = .045 + Math.random() * .055;
+        const m = new THREE.Mesh(
+          new THREE.SphereGeometry(s, 16, 10),
+          new THREE.MeshStandardMaterial({ color: 0xf4ffff, roughness: .35, transparent: true, opacity: .76 })
+        );
+        m.position.set(Math.cos(a) * d, y + (Math.random() - .5) * .08, Math.sin(a) * d);
+        group.add(m);
+      }
+
+      v.group.add(group);
+      v.foam = group;
+
+      game.effects.push({ type: "foam", vessel: v, group, age: 0, life: 7.5 });
+    }
+
+    function createBubbles(v, color, count, life) {
+      const group = new THREE.Group();
+      v.group.add(group);
+
+      const bubbles = [];
+      for (let i = 0; i < count; i++) {
+        const m = new THREE.Mesh(
+          new THREE.SphereGeometry(.014 + Math.random() * .035, 12, 8),
+          new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: .78,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          })
+        );
+        const a = Math.random() * Math.PI * 2;
+        const d = Math.random() * .44;
+        m.position.set(Math.cos(a) * d, .08 + Math.random() * .34, Math.sin(a) * d);
+        m.userData.speed = .25 + Math.random() * .65;
+        m.userData.seed = Math.random() * 10;
+        group.add(m);
+        bubbles.push(m);
+      }
+
+      game.effects.push({ type: "bubbles", vessel: v, group, bubbles, age: 0, life });
+    }
+
+    function createSmoke(v, color, count, life) {
+      const group = new THREE.Group();
+      v.group.add(group);
+      const smoke = [];
+
+      for (let i = 0; i < count; i++) {
+        const m = new THREE.Mesh(
+          new THREE.SphereGeometry(.05 + Math.random() * .09, 16, 10),
+          new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: .34,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          })
+        );
+        const a = Math.random() * Math.PI * 2;
+        const d = Math.random() * .25;
+        m.position.set(Math.cos(a) * d, 1.15 + Math.random() * .25, Math.sin(a) * d);
+        m.userData.speed = .18 + Math.random() * .34;
+        m.userData.spread = .12 + Math.random() * .22;
+        group.add(m);
+        smoke.push(m);
+      }
+
+      game.effects.push({ type: "smoke", group, smoke, age: 0, life });
+    }
+
+    function createSparks(v, count) {
+      const group = new THREE.Group();
+      v.group.add(group);
+      const sparks = [];
+
+      for (let i = 0; i < count; i++) {
+        const m = new THREE.Mesh(
+          new THREE.SphereGeometry(.018 + Math.random() * .02, 10, 8),
+          new THREE.MeshBasicMaterial({
+            color: Math.random() > .5 ? 0xfff2a6 : 0xff6d3a,
+            transparent: true,
+            opacity: .95,
+            blending: THREE.AdditiveBlending
+          })
+        );
+        m.position.set(0, .85, 0);
+        const a = Math.random() * Math.PI * 2;
+        const speed = .6 + Math.random() * 1.2;
+        m.userData.vx = Math.cos(a) * speed;
+        m.userData.vy = .25 + Math.random() * .8;
+        m.userData.vz = Math.sin(a) * speed;
+        group.add(m);
+        sparks.push(m);
+      }
+
+      game.effects.push({ type: "sparks", group, sparks, age: 0, life: 1.15 });
+    }
+
+    function createSwirl(v, color, count) {
+      const group = new THREE.Group();
+      v.group.add(group);
+      const parts = [];
+
+      for (let i = 0; i < count; i++) {
+        const m = new THREE.Mesh(
+          new THREE.SphereGeometry(.02 + Math.random() * .025, 10, 8),
+          new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: .8,
+            blending: THREE.AdditiveBlending
+          })
+        );
+        m.userData.angle = Math.random() * Math.PI * 2;
+        m.userData.radius = .12 + Math.random() * .36;
+        m.userData.y = .2 + Math.random() * .75;
+        group.add(m);
+        parts.push(m);
+      }
+
+      game.effects.push({ type: "swirl", group, parts, age: 0, life: 2.2 });
+    }
+
+    function pulse(v, color, opacity = .35) {
+      if (!v.glow) return;
+      v.glow.material.color.setHex(color);
+      v.glow.material.opacity = opacity;
+    }
+
+    function safetyCheck(v) {
+      let risk = 0;
+      for (const [id, amount] of Object.entries(v.contents)) {
+        risk += (R[id]?.danger || 0) * Math.min(1, amount / 25);
+      }
+
+      if (v.volume > v.max * .92) {
+        log(`${v.name} майже переповнена.`, "warn");
+        toast("Увага", "Колба майже переповнена.", "warn");
+      }
+
+      if (risk > 8 || v.temp > 85) {
+        v.warning = true;
+        log(`Небезпечний стан у ${v.name}: високий ризик суміші або температура.`, "bad");
+        danger("⚠ Небезпечна суміш. Це навчальна 3D-симуляція, не повторювати в реальності.");
+        pulse(v, 0xff365c, .48);
+      }
+    }
+
+    function completeQuest(reactionId) {
+      let changed = false;
+      for (const q of QUESTS) {
+        if (q.lvl > game.save.level) continue;
+        if (game.save.quests.includes(q.id)) continue;
+        if (q.reaction !== reactionId) continue;
+
+        game.save.quests.push(q.id);
+        game.save.coins += q.reward;
+        game.save.xp += q.xp;
+        game.save.score += q.xp;
+        changed = true;
+
+        log(`Завдання виконано: <b>${q.title}</b>. +${q.reward} монет, +${q.xp} XP.`, "reaction");
+        toast("Завдання виконано!", `${q.title}: +${q.reward} монет`, "good", 4400);
+      }
+
+      if (changed) {
+        checkLevel();
+        renderQuests();
+        renderStats();
+        renderReagents();
+        saveGame();
+      }
+    }
+
+    function checkLevel() {
+      let need = game.save.level * 120;
+      while (game.save.xp >= need && game.save.level < 5) {
+        game.save.xp -= need;
+        game.save.level++;
+        log(`Відкрито рівень <b>${game.save.level}</b>. Доступні нові речовини.`, "reaction");
+        toast("Новий рівень!", `Рівень ${game.save.level}: відкрито нові речовини.`, "good", 5200);
+        need = game.save.level * 120;
+      }
+    }
+
+    function selectReagent(id) {
+      const r = R[id];
+      if (!r) return;
+
+      if (r.level > game.save.level) {
+        toast("Заблоковано", `${r.name} відкриється на рівні ${r.level}.`, "warn");
+        return;
+      }
+
+      game.selectedReagent = id;
+      dom.selectedReagent.textContent = r.formula;
+      dom.action.textContent = `Вибрано ${r.formula}. Клікни по колбі.`;
+      renderReagents();
+    }
+
+    function selectVessel(id) {
+      game.selectedVessel = id;
+      for (const v of game.vessels) {
+        if (v.id === id) pulse(v, 0x00e5ff, .24);
+      }
+      updateVesselPanel();
+    }
+
+    function getVessel(id) {
+      return game.vessels.find(v => v.id === id);
+    }
+
+    function startPour(v) {
+      if (game.pouring) {
+        toast("Зачекай", "Речовина ще заливається.", "warn", 1500);
+        return;
+      }
+
+      const r = R[game.selectedReagent];
+      if (!r) {
+        toast("Не вибрано", "Спочатку вибери речовину зліва.", "warn");
+        return;
+      }
+
+      const amount = game.save.dose || 10;
+      if (v.volume + amount > v.max) {
+        toast("Переповнення", `${v.name} не вміщує ще ${amount} мл.`, "bad");
+        return;
+      }
+
+      dom.action.textContent = `${r.formula} заливається у ${v.name}...`;
+      setObservation("Наливання", `Пляшка нахиляється, видно струмінь і краплі ${r.formula}.`);
+      createPourBottle(r, v, amount);
+    }
+
+    function pointerMove(e) {
+      const rect = game.renderer.domElement.getBoundingClientRect();
+      game.pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      game.pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      const hit = raycast();
+      if (!hit) {
+        dom.hoverLabel.style.display = "none";
+        document.body.style.cursor = "default";
+        return;
+      }
+
+      const data = findData(hit.object);
+      if (!data) return;
+
+      dom.hoverLabel.textContent = labelFor(data);
+      dom.hoverLabel.style.left = `${e.clientX}px`;
+      dom.hoverLabel.style.top = `${e.clientY - 12}px`;
+      dom.hoverLabel.style.display = "block";
+      document.body.style.cursor = "pointer";
+    }
+
+    function pointerDown() {
+      const hit = raycast();
+      if (!hit) return;
+      const data = findData(hit.object);
+      if (!data) return;
+
+      if (data.type === "vessel") {
+        const v = getVessel(data.id);
+        if (!v) return;
+        selectVessel(data.id);
+        startPour(v);
+      }
+
+      if (data.type === "bottle") {
+        selectReagent(data.id);
+      }
+    }
+
+    function raycast() {
+      game.raycaster.setFromCamera(game.pointer, game.camera);
+      const hits = game.raycaster.intersectObjects(game.scene.children, true);
+      for (const h of hits) {
+        const d = findData(h.object);
+        if (d && (d.type === "vessel" || d.type === "bottle")) return h;
+      }
+      return null;
+    }
+
+    function findData(obj) {
+      let o = obj;
+      while (o) {
+        if (o.userData?.type) return o.userData;
+        o = o.parent;
+      }
+      return null;
+    }
+
+    function labelFor(data) {
+      if (data.type === "vessel") {
+        const v = getVessel(data.id);
+        return `${v.name} · ${Math.round(v.volume)} мл · pH ${v.pH.toFixed(1)}`;
+      }
+      if (data.type === "bottle") {
+        const r = R[data.id];
+        return `${r.formula} · ${r.name}`;
+      }
+      return "";
+    }
+
+    function renderStats() {
+      dom.level.textContent = game.save.level;
+      dom.xp.textContent = game.save.xp;
+      dom.coins.textContent = game.save.coins;
+      dom.score.textContent = game.save.score;
+    }
+
+    function renderReagents() {
+      const search = dom.search.value.trim().toLowerCase();
+      const filter = dom.filter.value;
+      dom.reagentList.innerHTML = "";
+
+      const list = REAGENTS.filter(r => {
+        const txt = `${r.name} ${r.formula} ${r.category} ${r.type} ${r.tags.join(" ")} ${r.desc}`.toLowerCase();
+        const okSearch = !search || txt.includes(search);
+        const okFilter =
+          filter === "all" ||
+          r.category === filter ||
+          r.type === filter ||
+          (filter === "danger" && r.danger >= 4);
+        return okSearch && okFilter;
+      });
+
+      for (const r of list) {
+        const locked = r.level > game.save.level;
+        const card = document.createElement("div");
+        card.className = `reagent ${game.selectedReagent === r.id ? "active" : ""} ${locked ? "locked" : ""} ${r.danger >= 4 ? "danger" : ""}`;
+
+        const dangerClass = r.danger >= 4 ? "red" : r.danger >= 3 ? "orange" : "";
+        card.innerHTML = `
+          <div class="reagent-top">
+            <div class="reagent-name">
+              <span class="dot" style="background:${cssHex(r.color)}"></span>
+              <span>${r.name}</span>
+            </div>
+            <div class="formula">${r.formula}</div>
+          </div>
+          <div class="tags">
+            <span class="tag">рівень ${r.level}</span>
+            <span class="tag">${r.category}</span>
+            <span class="tag">pH ${r.pH}</span>
+            <span class="tag ${dangerClass}">небезпека ${r.danger}/5</span>
+            ${r.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+          </div>
+          <div class="desc">${locked ? `Заблоковано. Потрібен рівень ${r.level}.` : r.desc}</div>
+        `;
+
+        card.addEventListener("click", () => selectReagent(r.id));
+        dom.reagentList.appendChild(card);
+      }
+    }
+
+    function updateVesselPanel() {
+      const v = getVessel(game.selectedVessel);
+      if (!v) {
+        dom.vesselLabel.textContent = "не вибрано";
+        dom.vesselName.textContent = "Колба не вибрана";
+        dom.vesselDesc.textContent = "Клікни по скляній колбі в 3D-сцені.";
+        dom.volumeText.textContent = "0 / 250 мл";
+        dom.volumeFill.style.width = "0%";
+        dom.phText.textContent = "7.0";
+        dom.phFill.style.width = "50%";
+        dom.tempText.textContent = "22°C";
+        dom.tempFill.style.width = "18%";
+        dom.contentCount.textContent = "0 речовин";
+        dom.contentList.innerHTML = "";
+        return;
+      }
+
+      dom.vesselLabel.textContent = v.name;
+      dom.vesselName.textContent = v.name;
+      dom.vesselDesc.textContent = v.warning
+        ? "Увага: суміш небезпечна або перегріта."
+        : v.volume > 0
+          ? "Колба активна. Можна додавати речовини, перемішувати або нагрівати."
+          : "Порожня колба. Додай першу речовину.";
+
+      dom.volumeText.textContent = `${Math.round(v.volume)} / ${v.max} мл`;
+      dom.volumeFill.style.width = `${clamp(v.volume / v.max * 100, 0, 100)}%`;
+
+      dom.phText.textContent = v.pH.toFixed(1);
+      dom.phFill.style.width = `${clamp(v.pH / 14 * 100, 0, 100)}%`;
+      dom.phFill.style.background =
+        v.pH < 4 ? "linear-gradient(90deg,#ff365c,#ff884d)" :
+        v.pH > 10 ? "linear-gradient(90deg,#245cff,#32ff9c)" :
+        "linear-gradient(90deg,#00e5ff,#32ff9c)";
+
+      dom.tempText.textContent = `${Math.round(v.temp)}°C`;
+      dom.tempFill.style.width = `${clamp(v.temp / 120 * 100, 0, 100)}%`;
+      dom.tempFill.style.background =
+        v.temp > 80 ? "linear-gradient(90deg,#ffb84d,#ff365c)" :
+        "linear-gradient(90deg,#00e5ff,#9b5cff)";
+
+      const entries = Object.entries(v.contents);
+      dom.contentCount.textContent = `${entries.length} речовин`;
+      dom.contentList.innerHTML = entries.length
+        ? entries.map(([id, amount]) => `
+          <div class="content-row">
+            <span>${R[id]?.formula || id} · ${R[id]?.name || ""}</span>
+            <strong>${Math.round(amount * 10) / 10} мл</strong>
+          </div>
+        `).join("")
+        : `<div class="hint" style="margin:0;">Колба порожня.</div>`;
+    }
+
+    function renderQuests() {
+      dom.questList.innerHTML = "";
+      for (const q of QUESTS) {
+        if (q.lvl > game.save.level + 1) continue;
+
+        const done = game.save.quests.includes(q.id);
+        const locked = q.lvl > game.save.level;
+
+        const div = document.createElement("div");
+        div.className = `quest ${done ? "done" : ""} ${locked ? "locked" : ""}`;
+        div.innerHTML = `
+          <b>${done ? "✅" : locked ? "🔒" : "🧪"} ${q.title}</b>
+          <p>${locked ? `Відкриється на рівні ${q.lvl}. ` : ""}${q.text}</p>
+          <small>Нагорода: ${q.reward} монет · ${q.xp} XP</small>
+        `;
+        dom.questList.appendChild(div);
+      }
+    }
+
+    function bindUI() {
+      dom.search.addEventListener("input", renderReagents);
+      dom.filter.addEventListener("change", renderReagents);
+
+      dom.dose5.addEventListener("click", () => setDose(5));
+      dom.dose10.addEventListener("click", () => setDose(10));
+      dom.dose25.addEventListener("click", () => setDose(25));
+
+      dom.stir.addEventListener("click", () => {
+        const v = getVessel(game.selectedVessel);
+        if (!v) return toast("Колба не вибрана", "Спочатку клікни по колбі.", "warn");
+
+        log(`${v.name} перемішано.`);
+        setObservation("Перемішування", "Рідина закручується, речовини розподіляються рівномірніше.");
+        createSwirl(v, v.targetColor, 36);
+        calculateChemistry(v);
+        checkReactions(v);
+        pulse(v, 0x32ff9c, .3);
+        updateVesselPanel();
+      });
+
+      dom.heat.addEventListener("click", () => {
+        const v = getVessel(game.selectedVessel);
+        if (!v) return toast("Колба не вибрана", "Спочатку клікни по колбі.", "warn");
+
+        v.temp = clamp(v.temp + 14, 0, 125);
+        log(`${v.name} нагріто до ${Math.round(v.temp)}°C.`, v.temp > 85 ? "bad" : "warn");
+        setObservation("Нагрівання", `Температура піднялась до ${Math.round(v.temp)}°C. Якщо суміш небезпечна, може зʼявитися попередження.`);
+        createSmoke(v, 0xffc56a, 10, 1.8);
+        pulse(v, 0xffb84d, .35);
+        safetyCheck(v);
+        updateVesselPanel();
+      });
+
+      dom.cool.addEventListener("click", () => {
+        const v = getVessel(game.selectedVessel);
+        if (!v) return toast("Колба не вибрана", "Спочатку клікни по колбі.", "warn");
+
+        v.temp = clamp(v.temp - 12, 0, 125);
+        log(`${v.name} охолоджено до ${Math.round(v.temp)}°C.`);
+        setObservation("Охолодження", `Температура зменшилась до ${Math.round(v.temp)}°C.`);
+        pulse(v, 0x00e5ff, .28);
+        updateVesselPanel();
+      });
+
+      dom.clear.addEventListener("click", () => {
+        const v = getVessel(game.selectedVessel);
+        if (!v) return toast("Колба не вибрана", "Спочатку клікни по колбі.", "warn");
+        clearVessel(v);
+      });
+
+      dom.resetSave.addEventListener("click", () => {
+        localStorage.removeItem(SAVE_KEY);
+        location.reload();
+      });
+
+      addEventListener("keydown", e => {
+        if (e.key === "1") setDose(5);
+        if (e.key === "2") setDose(10);
+        if (e.key === "3") setDose(25);
+      });
+    }
+
+    function setDose(n) {
+      game.save.dose = n;
+      saveGame();
+      dom.action.textContent = `Доза встановлена: ${n} мл`;
+      dom.dose5.classList.toggle("primary", n === 5);
+      dom.dose10.classList.toggle("primary", n === 10);
+      dom.dose25.classList.toggle("primary", n === 25);
+      toast("Доза", `Тепер додається ${n} мл.`, "good", 1400);
+    }
+
+    function clearVessel(v) {
+      if (v.precipitate) {
+        removeObject(v.precipitate);
+        v.precipitate = null;
+      }
+      if (v.foam) {
+        removeObject(v.foam);
+        v.foam = null;
+      }
+
+      v.clear();
+      log(`${v.name} очищено.`);
+      setObservation("Колбу очищено", `${v.name} готова до нового досліду.`);
+      toast("Очищено", `${v.name} порожня.`, "good");
+      updateVesselPanel();
+    }
+
+    function updateVesselVisual(v, dt) {
+      v.visualVolume = lerp(v.visualVolume, v.volume, 1 - Math.pow(.001, dt));
+      v.color = mixColors([v.color, v.targetColor, v.targetColor]);
+
+      if (v.glow) v.glow.material.opacity *= Math.pow(.07, dt);
+
+      if (!v.liquid) return;
+      if (v.visualVolume <= .5) {
+        v.liquid.visible = false;
+        return;
+      }
+
+      v.liquid.visible = true;
+      const fill = clamp(v.visualVolume / v.max, .015, 1);
+      const h = lerp(.035, 1.05, fill);
+
+      v.liquid.geometry.dispose();
+      v.liquid.geometry = new THREE.CylinderGeometry(lerp(.54, .40, fill), .56, h, 64);
+      v.liquid.position.y = h / 2;
+
+      v.liquid.material.color.setHex(v.color);
+      v.liquid.material.emissive.setHex(v.color);
+      v.liquid.material.emissiveIntensity = .08 + fill * .18;
+      v.liquid.rotation.y += dt * .18;
+    }
+
+    function updateEffects(dt, elapsed) {
+      for (let i = game.effects.length - 1; i >= 0; i--) {
+        const e = game.effects[i];
+
+        if (e.type === "pour") {
+          updatePour(e, dt);
+          continue;
+        }
+
+        e.age += dt;
+
+        if (e.type === "bubbles") {
+          for (const b of e.bubbles) {
+            b.position.y += b.userData.speed * dt;
+            b.position.x += Math.sin(elapsed * 7 + b.userData.seed) * dt * .028;
+            b.material.opacity = clamp(.8 * (1 - e.age / e.life), 0, .8);
+            if (b.position.y > 1.25) b.position.y = .08;
+          }
+        }
+
+        if (e.type === "smoke") {
+          for (const s of e.smoke) {
+            s.position.y += s.userData.speed * dt;
+            s.position.x += Math.sin(elapsed * 2 + s.id) * dt * s.userData.spread;
+            s.scale.multiplyScalar(1 + dt * .35);
+            s.material.opacity = clamp(.34 * (1 - e.age / e.life), 0, .34);
+          }
+        }
+
+        if (e.type === "sparks") {
+          for (const s of e.sparks) {
+            s.position.x += s.userData.vx * dt;
+            s.position.y += s.userData.vy * dt;
+            s.position.z += s.userData.vz * dt;
+            s.userData.vy -= 1.6 * dt;
+            s.material.opacity = clamp(.95 * (1 - e.age / e.life), 0, .95);
+          }
+        }
+
+        if (e.type === "swirl") {
+          for (const p of e.parts) {
+            p.userData.angle += dt * 5.5;
+            p.position.x = Math.cos(p.userData.angle) * p.userData.radius;
+            p.position.z = Math.sin(p.userData.angle) * p.userData.radius;
+            p.position.y = p.userData.y + Math.sin(elapsed * 5 + p.id) * .04;
+            p.material.opacity = clamp(.8 * (1 - e.age / e.life), 0, .8);
+          }
+        }
+
+        if (e.type === "foam") {
+          e.group.scale.y = 1 + Math.sin(elapsed * 5) * .035;
+          e.group.children.forEach((c, idx) => {
+            c.material.opacity = clamp(.76 * (1 - Math.max(0, e.age - 4) / 3.5), 0, .76);
+            c.position.y += Math.sin(elapsed * 4 + idx) * dt * .01;
+          });
+        }
+
+        if (e.age >= e.life) {
+          removeObject(e.group);
+          game.effects.splice(i, 1);
+        }
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = Math.min(game.clock.getDelta(), .033);
+      const elapsed = game.clock.elapsedTime;
+
+      game.controls.update();
+
+      for (const v of game.vessels) updateVesselVisual(v, dt);
+
+      for (const b of game.bottles) {
+        b.rotation.y = Math.sin(elapsed * 1.2 + b.position.x) * .035;
+      }
+
+      updateEffects(dt, elapsed);
+      game.renderer.render(game.scene, game.camera);
+    }
+
+    function resize() {
+      game.camera.aspect = innerWidth / innerHeight;
+      game.camera.updateProjectionMatrix();
+      game.renderer.setSize(innerWidth, innerHeight);
+    }
+
+    function boot() {
+      initThree();
+      bindUI();
+      renderStats();
+      renderReagents();
+      renderQuests();
+      updateVesselPanel();
+      setDose(game.save.dose || 10);
+
+      log("Лабораторію запущено.");
+      log("Спробуй: AgNO₃ + NaCl, HCl + NaOH, HCl + NaHCO₃, CuSO₄ + NaOH.");
+      toast("Готово", "Вибери речовину і клікни по колбі. Тепер видно наливання та реакцію.", "good", 4600);
+
+      animate();
+    }
+
+    boot();
+  </script>
+</body>
+</html>
